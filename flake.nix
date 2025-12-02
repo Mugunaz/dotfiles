@@ -6,9 +6,11 @@
 
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    
+    agenix.url = "github:ryantm/agenix";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }:
+  outputs = { self, nixpkgs, home-manager, agenix, ... }:
   let
     system = "x86_64-linux";
   in {
@@ -18,6 +20,7 @@
         ./hosts/nixos/configuration.nix
 
         home-manager.nixosModules.home-manager
+        agenix.nixosModules.default
 
         {
           home-manager.useGlobalPkgs = true;
