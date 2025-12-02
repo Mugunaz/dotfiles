@@ -8,10 +8,9 @@
 
   imports = [
     ../../modules/home/shell.nix
-  ];
-
-  home.packages = with pkgs; [
-    htop
-    neovim
-  ];
+    ../../modules/home/packages.nix
+    ../../modules/home/git.nix
+    ../../modules/home/editor.nix
+    ../../modules/home/hyprland.nix
+ ];
 }

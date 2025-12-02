@@ -11,18 +11,21 @@
   outputs = { self, nixpkgs, home-manager, ... }:
   let
     system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-    };
   in {
-    homeConfigurations."joseph" =
-      home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          ./home/joseph/home.nix
-        ];
-      };
-    
+    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+      inherit system;
+      modules = [
+        ./hosts/nixos/configuration.nix
+
+        home-manager.nixosModules.home-manager
+
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          
+          home-manager.users.joseph = import ./home/joseph/home.nix;
+        }
+      ];
+    };
   };
 }
