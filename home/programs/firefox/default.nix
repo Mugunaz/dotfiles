@@ -1,42 +1,70 @@
 { config, pkgs, ... }:
 
+let
+    lock-false = { Value = false; Status = "locked"; };
+    lock-true  = { Value = true; Status = "locked"; };
+in
 {
-    profiles.default.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        ublock-origin
-        bitwarden
-        darkreader
-
-    ];
-
     programs.firefox = {
         enable = true;
+        # languagePacks = [ "en-US" "de" ];
 
-        profiles.default.settings = {
-            # Download directory
-            "browser.download.lastDir" = "/home/joseph/dotfiles/assets";
+        # Policies: see about:policies for details. Use these to set prefs and
+        # to force-install or block extensions via their IDs.
+        policies = {
+            DisableTelemetry = true;
+            DisableFirefoxStudies = true;
+            EnableTrackingProtection = {
+                Value = true;
+                Locked = true;
+                Cryptomining = true;
+                Fingerprinting = true;
+            };
+            DisablePocket = true;
+            DisableFirefoxAccounts = true;
+            DisableAccounts = true;
+            DisableFirefoxScreenshots = true;
+            OverrideFirstRunPage = "";
+            OverridePostUpdatePage = "";
+            DontCheckDefaultBrowser = true;
+            DisplayBookmarksToolbar = "never";
+            DisplayMenuBar = "default-off";
+            SearchBar = "unified";
 
-            # Privacy: disable prefetching
-            "network.prefetch-next" = false;
-            "network.dns.disablePrefetch" = true;
-            "network.http.speculative-parallel-limit" = 0;
+            # ExtensionSettings: block all by default and add exceptions below.
+            ExtensionSettings = {
+                "*".installation_mode = "blocked";
+                "uBlock0@raymondhill.net" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+            };
 
-            # Containers
-            "privacy.userContext.enabled" = true;
-            "privacy.userContext.ui.enabled" = true;
+            Preferences = {
+                "browser.download.lastDir" = "/home/joseph/dotfiles/assets";
 
-            # Sidebar / vertical tabs
-            "sidebar.verticalTabs" = true;
+                # Privacy prefs
+                "network.prefetch-next" = lock-false;
+                "network.dns.disablePrefetch" = lock-true;
+                "network.http.speculative-parallel-limit" = 0;
 
-            # Autofill
-            "dom.forms.autocomplete.formautofill" = true;
+                # Containers
+                "privacy.userContext.enabled" = lock-true;
+                "privacy.userContext.ui.enabled" = lock-true;
 
-            # Start page behavior (optional)
-            "browser.shell.checkDefaultBrowser" = false;
+                # Sidebar / vertical tabs
+                "sidebar.verticalTabs" = lock-true;
 
-            # Disable Firefox’s “default bookmarks” restore
-            "browser.bookmarks.restore_default_bookmarks" = false;
+                # Autofill
+                "dom.forms.autocomplete.formautofill" = lock-false;
+
+                # Start page behavior
+                "browser.shell.checkDefaultBrowser" = lock-false;
+
+                # Disable Firefox’s “default bookmarks” restore
+                "browser.bookmarks.restore_default_bookmarks" = lock-false;
+            };
         };
-        };
-
+    };
 
 }
