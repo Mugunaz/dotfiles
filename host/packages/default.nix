@@ -10,5 +10,6 @@
     git
     python3
     tailscale
+    sunshine
   ];
 }

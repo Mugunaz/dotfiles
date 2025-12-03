@@ -33,9 +33,16 @@ in
 
             # ExtensionSettings: block all by default and add exceptions below.
             ExtensionSettings = {
-                "*".installation_mode = "blocked";
                 "uBlock0@raymondhill.net" = {
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+                "bitwarden" = {
+                    install_url = "https://addons.mozilla.org/en-US/firefox/addon/bitwarden-password-manager/";
+                    installation_mode = "force_installed";
+                };
+                "DarkReader" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
                     installation_mode = "force_installed";
                 };
             };
