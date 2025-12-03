@@ -8,9 +8,11 @@
   services.xserver.desktopManager.gnome.enable = true;
 
   services.logind = {
-    lidSwitch = "ignore";
+    #lidSwitch = "ignore";
     lidSwitchDocked = "ignore";
     lidSwitchExternalPower = "ignore";
   };
+
+  services.tailscale.enable = true;
 
 }

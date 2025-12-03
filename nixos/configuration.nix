@@ -14,7 +14,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot";
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "25.11";
 
   hardware.graphics = {
     enable = true;
@@ -65,6 +65,6 @@
 
   system.autoUpgrade = {
    enable = true;
-   channel = "https://nixos.org/channels/nixos-25.05";
+   channel = "https://nixos.org/channels/nixos-25.11";
   };
 }

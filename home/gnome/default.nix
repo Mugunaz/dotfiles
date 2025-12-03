@@ -56,11 +56,6 @@
     document-font-name = "JetBrains Mono 11";
     monospace-font-name = "JetBrains Mono 11";
     };
-    "org/gnome/shell" = {
-    disable-user-extensions = false;
-    enabled-extensions = with pkgs.gnomeExtensions; [
-        search-light.extensionUuid
-    ];
-    };
+
   };
 }

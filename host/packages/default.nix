@@ -9,5 +9,6 @@
     vscode
     git
     python3
+    tailscale
   ];
 }

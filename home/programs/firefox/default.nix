@@ -8,7 +8,6 @@
 
     ];
 
-
     programs.firefox = {
         enable = true;
 
