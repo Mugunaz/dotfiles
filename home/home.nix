@@ -3,7 +3,6 @@
   imports = [
     #./environment
     ./programs
-    ./scripts
     ./gnome
   ];
 

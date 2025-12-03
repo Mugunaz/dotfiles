@@ -4,5 +4,6 @@
     ./virtualisation
     ./services
     ./packages
+    ./programs
   ];
 }

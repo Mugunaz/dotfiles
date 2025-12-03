@@ -1,11 +1,7 @@
 {
   imports = [
-    ./alacritty
-    ./hypr
-    ./kitty
-    ./rofi
-    ./waybar
-    ./zsh
+    ./hyprland
     ./git
+    ./firefox
   ];
 }
