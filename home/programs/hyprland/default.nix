@@ -21,7 +21,8 @@
       bind = [
         "$mainMod, Return, exec, kitty"
         "$mainMod, W, closewindow"
-        "$mainMod, B, firefox"
+        "$mainMod, B, exec, firefox"
+        "$mainMod, F, exec, nautilus"
       ];
     };
   };
