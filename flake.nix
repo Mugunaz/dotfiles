@@ -13,11 +13,16 @@
   outputs = { self, nixpkgs, home-manager, agenix, ... }:
   let
     system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      config.allowUnfree = true; # or false, as you like
+    };
   in {
-    nixosConfigurations."nixos" = nixpkgs.lib.nixosSystem {
+
+    nixosConfigurations."xps" = nixpkgs.lib.nixosSystem {
       inherit system;
       modules = [
-        ./hosts/nixos/configuration.nix
+        ./nixos/configuration.nix
 
         home-manager.nixosModules.home-manager
         agenix.nixosModules.default
@@ -26,7 +31,7 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           
-          home-manager.users.joseph = import ./home/joseph/home.nix;
+          home-manager.users.joseph = import ./home/home.nix;
         }
       ];
     };

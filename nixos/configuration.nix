@@ -1,16 +1,35 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
+    ./users.nix
+    ../host/default.nix
   ];
+
+  networking.hostName = "xps"; 
+
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot";
 
   system.stateVersion = "25.05";
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+  hardware.graphics = {
+    enable = true;
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    # powerManagement.finegrained = true;
+
+    nvidiaSettings = true;
+    open = false;
+  };
 
   # Nix Settings
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -18,7 +37,6 @@
   # Networking
   # networking.wireless.enable = true;  # Enables wireless support via wpa_s
   networking.networkmanager.enable = true;
-
 
   # Time and Locale
   time.timeZone = "Europe/Paris";
@@ -38,16 +56,15 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  environment.systemPackages = with pkgs; [
-    wget
-    docker-compose
-    waybar
-    rofi-wayland
-    kitty
-    wofi
-    hyprpaper
-    hyprlock
-    hypridle
-    firefox
- ];
+  #Garbage colector
+  nix.gc = {
+    automatic = true;
+    dates = "monthly";
+    options = "--delete-older-than 30d";
+  };
+
+  system.autoUpgrade = {
+   enable = true;
+   channel = "https://nixos.org/channels/nixos-25.05";
+  };
 }
