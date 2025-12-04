@@ -16,6 +16,8 @@
     nerd-fonts.jetbrains-mono
     noto-fonts-color-emoji
     swww
+    cmatrix
+    spotify
   ]);
 
   programs.home-manager.enable = true;
