@@ -14,7 +14,7 @@
 
     theme = {
       #name = "tokyonight-gtk-theme";      # theme name as seen by GTK
-      name = "Tokyonight-Dark-xhdpi";
+      name = "Tokyonight-Dark";
       package = pkgs.tokyonight-gtk-theme;
     };
 

@@ -13,6 +13,9 @@
 
   home.packages = (with pkgs; [
     jetbrains-mono
+    nerd-fonts.jetbrains-mono
+    noto-fonts-color-emoji
+    swww
   ]);
 
   programs.home-manager.enable = true;
